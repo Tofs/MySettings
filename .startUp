@@ -1,0 +1,23 @@
+#!/bin/bash
+
+
+killall mate-volume-control-applet 
+
+mate-volume-control-applet & 
+
+
+
+isConnected="$(xrandr | grep 'DP-2 connected')"
+
+
+
+
+if [ "" = "$isConnected"  ]; then
+	xrandr --output eDP-1 --auto
+else
+	xrandr --output eDP-1 --off
+fi
+
+
+
+
