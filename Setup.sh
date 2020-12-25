@@ -10,7 +10,7 @@ apt install vim
 #install awesome and xdr for remote desktop
 echo "Installing Awesome window manager"
 apt install awesome
-apt install xterm
+apt install stterm
 
 echo "Install XRDP"
 apt install xrdp
