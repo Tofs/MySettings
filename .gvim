@@ -1,0 +1,20 @@
+" set code things
+set number
+syntax on
+
+" text look
+set guifont=Consolas:h10:cANSI:qDRAFT
+highlight Normal guifg=white guibg=darkgray
+colo slate
+
+" indentation settings
+set autoindent
+set expandtab
+set tabstop=4
+set shiftwidth=4
+
+" code navigation
+set tags+=C:\temp\tags\
+
+" mapping
+map <F5> :w <CR> :! C:\Scania\main\tools\build_tools\QA\analyse2.bat cunit -c C:\Scania\main\tools_cfg\11\analyse.cfg % > c:\temp\vim.log <CR>
