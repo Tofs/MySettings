@@ -3,8 +3,8 @@
 
 
 # Windows
-Install gVim
-Install cygwin
+* Install gVim
+* Install cygwin
 
 
 # Cygwin packages
