@@ -3,8 +3,9 @@
 
 
 # Windows
-* Install gVim
+* Install gVim 
 * Install cygwin
+* Install cmder
 
 
 # Cygwin packages
