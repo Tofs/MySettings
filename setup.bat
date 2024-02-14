@@ -6,6 +6,7 @@ if "%1"=="" (
 if "%1"=="install" (  
 	winget install --id Git.Git -e --source winget
 	winget install Microsoft.PowerToys --source winget
+	winget install neovim
 	curl http://www.cygwin.com/setup-x86_64.exe -o .\cygwin_setup.exe
 )
 if "%1"=="pull" (
