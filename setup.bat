@@ -7,10 +7,10 @@ if "%1"=="install" (
 	winget install --id Git.Git -e --source winget
 	winget install Microsoft.PowerToys --source winget
 	winget install neovim
-	curl http://www.cygwin.com/setup-x86_64.exe -o .\cygwin_setup.exe
+  winget install BurntSushi.ripgrep.MSVC
 )
 if "%1"=="pull" (
-	git clone https://github.com/Tofs/MySettings.git ./mysettings
+	cp -r %appdata%\..\Local\nvim .
 )
 if "%1"=="setup" (
 	cp ./.vimrc %home%/_vimrc

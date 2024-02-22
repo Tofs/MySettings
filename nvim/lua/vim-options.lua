@@ -13,4 +13,6 @@ vim.keymap.set('n', '<c-h>', ':wincmd h<CR>')
 vim.keymap.set('n', '<c-l>', ':wincmd l<CR>')
 
 vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
+
+vim.keymap.set('n', '<leader>r', ':!..\\tools\\build_tools\\QA\\common\\runAnalyser.bat --analysers cunit --builds 11_diab --file % --output CMD+')
 vim.wo.number = true
