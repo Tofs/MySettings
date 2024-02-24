@@ -13,6 +13,7 @@ if defined INSTALL (
 	winget install neovim
 	winget install BurntSushi.ripgrep.MSVC
   winget install python3
+  winget install zip.zip
 	git config --global core.sshCommand "C:/Windows/System32/OpenSSH/ssh.exe"
 )
 if defined REPOCLONE (
