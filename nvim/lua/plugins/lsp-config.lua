@@ -10,6 +10,9 @@ return {
     "williamboman/mason-lspconfig.nvim",
     lazy = false,
     opts = {
+      ensure_installed = {
+        "jedi_language_server",
+      },
       auto_install = true,
     },
   },
@@ -27,6 +30,9 @@ return {
         capabilities = capabilities
       })
       lspconfig.lua_ls.setup({
+        capabilities = capabilities
+      })
+      lspconfig.jedi_language_server.setup({
         capabilities = capabilities
       })
 
