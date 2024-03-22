@@ -1,0 +1,7 @@
+          {
+                "guid": "{00000000-0000-0000-0000-000000000001}",
+                "commandline": "C:/dev/cygwin/Cygwin.bat",
+                "icon": "C:/dev/cygwin/Cygwin-Terminal.ico",
+                "hidden": false,
+                "name": "Cygwin"
+          }
