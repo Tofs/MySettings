@@ -16,6 +16,7 @@ if defined INSTALL (
 	winget install zig.zig
 	winget install Agilebits.1Password
   winget install OpenJS.NodeJS
+  winget install Meld.Meld
 	git config --global core.sshCommand "C:/Windows/System32/OpenSSH/ssh.exe"
 )
 if defined REPOCLONE (
