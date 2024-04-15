@@ -12,8 +12,10 @@ return {
     opts = {
       ensure_installed = {
         "jedi_language_server",
+        "biome",
+        "clangd",
+        "lua_ls"
       },
-      auto_install = true,
     },
   },
   {
@@ -23,9 +25,6 @@ return {
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       local lspconfig = require("lspconfig")
-      lspconfig.tsserver.setup({
-        capabilities = capabilities
-      })
       lspconfig.lua_ls.setup({
         capabilities = capabilities
       })
@@ -33,6 +32,13 @@ return {
         capabilities = capabilities
         -- Auto compltion Solved by setting "true" to "include-system-site-packages" string in ~/.local/share/nvim/mason/packages/python-lsp-server/venv/pyvenv.cfg file.
       })
+      lspconfig.jsonls.setup({
+        capabilities = capabilities
+      })
+      lspconfig.clangd.setup({
+        capabilities = capabilities
+      })
+
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
