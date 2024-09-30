@@ -6,14 +6,14 @@ return {
             "nvim-lua/plenary.nvim",
         },
         config = function()
-            vim.keymap.set("n", "gl", ":LazyGit\n", {})
+            vim.keymap.set("n", "<leader>gl", ":LazyGit\n", {})
         end
     },
     {
         "FabijanZulj/blame.nvim",
         config = function()
             require("blame").setup()
-            vim.keymap.set("n", "gb", ":BlameToggle\n", {})
+            vim.keymap.set("n", "<leader>gb", ":BlameToggle\n", {})
         end
     }
 }
