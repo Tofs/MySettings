@@ -15,5 +15,8 @@ return {
             require("blame").setup()
             vim.keymap.set("n", "<leader>gb", ":BlameToggle\n", {})
         end
+    },
+    {
+        "sindrets/diffview.nvim"
     }
 }

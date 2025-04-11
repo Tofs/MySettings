@@ -1,6 +1,7 @@
 setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
 #unsetopt HIST_SAVE_NO_DUPS       # Write a duplicate event to the history file
 
+TIMEFMT=$'\n================\nCPU\t%P\nuser\t%*U\nsystem\t%*S\ntotal\t%*E'
 
 
 ##############
@@ -8,38 +9,38 @@ setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history
 # VI Mode!
 #
 ##############
-bindkey -v
-export KEYTIMEOUT=1
-cursor_mode() {
-    # See https://ttssh2.osdn.jp/manual/4/en/usage/tips/vim.html for cursor shapes
-    cursor_block='\e[2 q'
-    cursor_beam='\e[6 q'
-
-    function zle-keymap-select {
-        if [[ ${KEYMAP} == vicmd ]] ||
-            [[ $1 = 'block' ]]; then
-            echo -ne $cursor_block
-        elif [[ ${KEYMAP} == main ]] ||
-            [[ ${KEYMAP} == viins ]] ||
-            [[ ${KEYMAP} = '' ]] ||
-            [[ $1 = 'beam' ]]; then
-            echo -ne $cursor_beam
-        fi
-    }
-
-    zle-line-init() {
-        echo -ne $cursor_beam
-    }
-
-    zle -N zle-keymap-select
-    zle -N zle-line-init
-}
-
-cursor_mode
-
-autoload -Uz edit-command-line
-zle -N edit-command-line
-bindkey -M vicmd v edit-command-line
+#bindkey -v
+#export KEYTIMEOUT=1
+#cursor_mode() {
+#    # See https://ttssh2.osdn.jp/manual/4/en/usage/tips/vim.html for cursor shapes
+#    cursor_block='\e[2 q'
+#    cursor_beam='\e[6 q'
+#
+#    function zle-keymap-select {
+#        if [[ ${KEYMAP} == vicmd ]] ||
+#            [[ $1 = 'block' ]]; then
+#            echo -ne $cursor_block
+#        elif [[ ${KEYMAP} == main ]] ||
+#            [[ ${KEYMAP} == viins ]] ||
+#            [[ ${KEYMAP} = '' ]] ||
+#            [[ $1 = 'beam' ]]; then
+#            echo -ne $cursor_beam
+#        fi
+#    }
+#
+#    zle-line-init() {
+#        echo -ne $cursor_beam
+#    }
+#
+#    zle -N zle-keymap-select
+#    zle -N zle-line-init
+#}
+#
+#cursor_mode
+#
+#autoload -Uz edit-command-line
+#zle -N edit-command-line
+#bindkey -M vicmd v edit-command-line
 
   # ____ ___  __  __ ____  _     _____ _____ ___ ___  _   _ 
 #  / ___/ _ \|  \/  |  _ \| |   | ____|_   _|_ _/ _ \| \ | |
@@ -75,6 +76,14 @@ bindkey -M menuselect '^xu' undo                           # Undo
 
 autoload -U compinit; compinit
 _comp_options+=(globdots) # With hidden files
+
+# Setup fzf
+# ---------
+if [[ ! "$PATH" == */home/anton/.fzf/bin* ]]; then
+  PATH="${PATH:+${PATH}:}/home/anton/.fzf/bin"
+fi
+
+source <(fzf --zsh)
 
 # Only work with the Zsh function vman
 # See $DOTFILES/zsh/scripts.zsh
@@ -183,67 +192,67 @@ zstyle ':completion:*:*:kubectl:*' list-grouped false
 git_prompt_status() {
   local INDEX STATUS
 
-  INDEX=$(command git status --porcelain -b 2> /dev/null)
-
-  STATUS=""
-
-  if $(echo "$INDEX" | command grep -E '^\?\? ' &> /dev/null); then
-    STATUS="$ZSH_THEME_GIT_PROMPT_UNTRACKED$STATUS"
-  fi
-
-  if $(echo "$INDEX" | grep '^A  ' &> /dev/null); then
-    STATUS="$ZSH_THEME_GIT_PROMPT_ADDED$STATUS"
-  elif $(echo "$INDEX" | grep '^M  ' &> /dev/null); then
-    STATUS="$ZSH_THEME_GIT_PROMPT_ADDED$STATUS"
-  elif $(echo "$INDEX" | grep '^MM ' &> /dev/null); then
-    STATUS="$ZSH_THEME_GIT_PROMPT_ADDED$STATUS"
-  fi
-
-  if $(echo "$INDEX" | grep '^ M ' &> /dev/null); then
-    STATUS="$ZSH_THEME_GIT_PROMPT_MODIFIED$STATUS"
-  elif $(echo "$INDEX" | grep '^AM ' &> /dev/null); then
-    STATUS="$ZSH_THEME_GIT_PROMPT_MODIFIED$STATUS"
-  elif $(echo "$INDEX" | grep '^MM ' &> /dev/null); then
-    STATUS="$ZSH_THEME_GIT_PROMPT_MODIFIED$STATUS"
-  elif $(echo "$INDEX" | grep '^ T ' &> /dev/null); then
-    STATUS="$ZSH_THEME_GIT_PROMPT_MODIFIED$STATUS"
-  fi
-
-  if $(echo "$INDEX" | grep '^R  ' &> /dev/null); then
-    STATUS="$ZSH_THEME_GIT_PROMPT_RENAMED$STATUS"
-  fi
-
-  if $(echo "$INDEX" | grep '^ D ' &> /dev/null); then
-    STATUS="$ZSH_THEME_GIT_PROMPT_DELETED$STATUS"
-  elif $(echo "$INDEX" | grep '^D  ' &> /dev/null); then
-    STATUS="$ZSH_THEME_GIT_PROMPT_DELETED$STATUS"
-  elif $(echo "$INDEX" | grep '^AD ' &> /dev/null); then
-    STATUS="$ZSH_THEME_GIT_PROMPT_DELETED$STATUS"
-  fi
-
-  if $(command git rev-parse --verify refs/stash >/dev/null 2>&1); then
-    STATUS="$ZSH_THEME_GIT_PROMPT_STASHED$STATUS"
-  fi
-
-  if $(echo "$INDEX" | grep '^UU ' &> /dev/null); then
-    STATUS="$ZSH_THEME_GIT_PROMPT_UNMERGED$STATUS"
-  fi
-
-  if $(echo "$INDEX" | grep '^## [^ ]\+ .*ahead' &> /dev/null); then
-    STATUS="$ZSH_THEME_GIT_PROMPT_AHEAD$STATUS"
-  fi
-
-  if $(echo "$INDEX" | grep '^## [^ ]\+ .*behind' &> /dev/null); then
-    STATUS="$ZSH_THEME_GIT_PROMPT_BEHIND$STATUS"
-  fi
-
-  if $(echo "$INDEX" | grep '^## [^ ]\+ .*diverged' &> /dev/null); then
-    STATUS="$ZSH_THEME_GIT_PROMPT_DIVERGED$STATUS"
-  fi
-
-  if [[ ! -z "$STATUS" ]]; then
-    echo " [ $STATUS]"
-  fi
+#  INDEX=$(command git status --porcelain -b 2> /dev/null)
+#
+#  STATUS=""
+#
+#  if $(echo "$INDEX" | command grep -E '^\?\? ' &> /dev/null); then
+#    STATUS="$ZSH_THEME_GIT_PROMPT_UNTRACKED$STATUS"
+#  fi
+#
+#  if $(echo "$INDEX" | grep '^A  ' &> /dev/null); then
+#    STATUS="$ZSH_THEME_GIT_PROMPT_ADDED$STATUS"
+#  elif $(echo "$INDEX" | grep '^M  ' &> /dev/null); then
+#    STATUS="$ZSH_THEME_GIT_PROMPT_ADDED$STATUS"
+#  elif $(echo "$INDEX" | grep '^MM ' &> /dev/null); then
+#    STATUS="$ZSH_THEME_GIT_PROMPT_ADDED$STATUS"
+#  fi
+#
+#  if $(echo "$INDEX" | grep '^ M ' &> /dev/null); then
+#    STATUS="$ZSH_THEME_GIT_PROMPT_MODIFIED$STATUS"
+#  elif $(echo "$INDEX" | grep '^AM ' &> /dev/null); then
+#    STATUS="$ZSH_THEME_GIT_PROMPT_MODIFIED$STATUS"
+#  elif $(echo "$INDEX" | grep '^MM ' &> /dev/null); then
+#    STATUS="$ZSH_THEME_GIT_PROMPT_MODIFIED$STATUS"
+#  elif $(echo "$INDEX" | grep '^ T ' &> /dev/null); then
+#    STATUS="$ZSH_THEME_GIT_PROMPT_MODIFIED$STATUS"
+#  fi
+#
+#  if $(echo "$INDEX" | grep '^R  ' &> /dev/null); then
+#    STATUS="$ZSH_THEME_GIT_PROMPT_RENAMED$STATUS"
+#  fi
+#
+#  if $(echo "$INDEX" | grep '^ D ' &> /dev/null); then
+#    STATUS="$ZSH_THEME_GIT_PROMPT_DELETED$STATUS"
+#  elif $(echo "$INDEX" | grep '^D  ' &> /dev/null); then
+#    STATUS="$ZSH_THEME_GIT_PROMPT_DELETED$STATUS"
+#  elif $(echo "$INDEX" | grep '^AD ' &> /dev/null); then
+#    STATUS="$ZSH_THEME_GIT_PROMPT_DELETED$STATUS"
+#  fi
+#
+#  if $(command git rev-parse --verify refs/stash >/dev/null 2>&1); then
+#    STATUS="$ZSH_THEME_GIT_PROMPT_STASHED$STATUS"
+#  fi
+#
+#  if $(echo "$INDEX" | grep '^UU ' &> /dev/null); then
+#    STATUS="$ZSH_THEME_GIT_PROMPT_UNMERGED$STATUS"
+#  fi
+#
+#  if $(echo "$INDEX" | grep '^## [^ ]\+ .*ahead' &> /dev/null); then
+#    STATUS="$ZSH_THEME_GIT_PROMPT_AHEAD$STATUS"
+#  fi
+#
+#  if $(echo "$INDEX" | grep '^## [^ ]\+ .*behind' &> /dev/null); then
+#    STATUS="$ZSH_THEME_GIT_PROMPT_BEHIND$STATUS"
+#  fi
+#
+#  if $(echo "$INDEX" | grep '^## [^ ]\+ .*diverged' &> /dev/null); then
+#    STATUS="$ZSH_THEME_GIT_PROMPT_DIVERGED$STATUS"
+#  fi
+#
+#  if [[ ! -z "$STATUS" ]]; then
+#    echo " [ $STATUS]"
+#  fi
 }
 
 
@@ -290,3 +299,11 @@ prompt_purification_setup() {
 }
 
 prompt_purification_setup
+
+alias pwsh="powershell.exe -c"
+alias git="pwsh git"
+alias lazygit="pwsh lazygit"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
