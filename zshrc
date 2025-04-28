@@ -301,8 +301,6 @@ prompt_purification_setup() {
 prompt_purification_setup
 
 alias pwsh="powershell.exe -c"
-alias git="pwsh git"
-alias lazygit="pwsh lazygit"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
