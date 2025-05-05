@@ -300,7 +300,20 @@ prompt_purification_setup() {
 
 prompt_purification_setup
 
+# wsl alias
 alias pwsh="powershell.exe -c"
+
+# zsh alias
+alias ls="ls -la"
+alias source="source ~/.zshrc"
+
+# git alias
+alias gca="git commit --amend --no-edit"
+alias gcm="git commit -m"
+alias gs="git status"
+alias ga="git add"
+alias gsh="git push"
+alias gll="git pull"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
