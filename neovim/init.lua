@@ -10,6 +10,10 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
+vim.cmd("let g:wiki_root = '~/wiki'")
 
 require("vim-options")
 require("lazy").setup("plugins")
+
+
+
