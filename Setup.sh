@@ -1,34 +1,40 @@
-# prepare computer
-echo "Update APT"
-apt update
-apt upgrade
 
-#intall vim
-echo "Install VIM" 
-apt install vim
+# install yay
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
 
-#install awesome and xdr for remote desktop
-echo "Installing Awesome window manager"
-apt install awesome
-apt install stterm
-
-echo "Install XRDP"
-apt install xrdp
-adduser xrdp ssl-cert
-cp -f .xsession ~/.xsession
-systemctl restart xrdp
-
+# development
+sudo pacman -S git nvim npm clang cmake lazygit
+ln -s ~/code/MySettings/neovim ~/.config/nvim
 
 #installing firefox
-apt install firefox
+sudo pacman -S firefox
 
-#installing visual studio code
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
-sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-apt-get install apt-transport-https
-apt-get update
-apt-get install code # or code-insiders
+#hyprland
+sudo pacman -S hyprland
+ln -s ~/code/MySettings/hyprland.conf ~/.config/hypr/hyprland.conf
+
+# waybar
+sudo pacman -S waybar
+# link in waybar config
+
+# cli setup
+sudo pacman -S zsh tmux fzf
+yay -S 1password
+chsh -s /usr/bin/zsh # set default shell
+ln -s ~/code/MySettings/zshenv ~/.zshenv
+ln -s ~/code/MySettings/zshrc ~/.zshrc
+
+# openSSH
+sudo pacman -S openssh
+systemctl enable sshd
+systemctl start sshd
 
 
+# general tools
+# yazi file manager
+pacman -S yazi 
 
+# media tools
+pacman -S mpv
