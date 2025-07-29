@@ -31,6 +31,12 @@ sudo pacman -S openssh
 systemctl enable sshd
 systemctl start sshd
 
+# cli setup
+sudo pacman -S zsh tmux fzf
+yay -S 1password
+chsh -s /usr/bin/zsh # set default shell
+ln -s ~/code/MySettings/zshenv ~/.zshenv
+ln -s ~/code/MySettings/zshrc ~/.zshrc
 
 # general tools
 # yazi file manager
