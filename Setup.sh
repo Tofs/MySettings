@@ -1,46 +1,51 @@
 
+# cli setup
+sudo pacman -S zsh tmux fzf sudo ripgrep
+chsh -s /usr/bin/zsh # set default shell
+rm ~/.zshenv
+rm ~/.zshrc
+rm ~/.tmux.conf
+ln -s ~/code/MySettings/zshenv ~/.zshenv
+ln -s ~/code/MySettings/zshrc ~/.zshrc
+ln -s ~/code/MySettings/.tmux.conf ~/.tmux.conf
+
+# development
+sudo pacman -S git nvim npm clang cmake make lazygit fakeroot debugedit
+mkdir -p ~/.config/nvim
+ln -s ~/code/MySettings/neovim ~/.config/nvim
+
 # install yay
+rm -rf yay
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 
-# development
-sudo pacman -S git nvim npm clang cmake lazygit
-ln -s ~/code/MySettings/neovim ~/.config/nvim
 
 #installing firefox
 sudo pacman -S firefox
 
 #hyprland
 sudo pacman -S hyprland
+mkdir -p ~/.config/hypr/
+rm ~/.config/hypr/hyprland.conf
 ln -s ~/code/MySettings/hyprland.conf ~/.config/hypr/hyprland.conf
 
 # waybar
 sudo pacman -S waybar
 # link in waybar config
 
-# cli setup
-sudo pacman -S zsh tmux fzf
-yay -S 1password
-chsh -s /usr/bin/zsh # set default shell
-ln -s ~/code/MySettings/zshenv ~/.zshenv
-ln -s ~/code/MySettings/zshrc ~/.zshrc
+# Kitty
+sudo pacman -S kitty
 
 # openSSH
 sudo pacman -S openssh
 systemctl enable sshd
 systemctl start sshd
 
-# cli setup
-sudo pacman -S zsh tmux fzf
-yay -S 1password
-chsh -s /usr/bin/zsh # set default shell
-ln -s ~/code/MySettings/zshenv ~/.zshenv
-ln -s ~/code/MySettings/zshrc ~/.zshrc
-
 # general tools
 # yazi file manager
-pacman -S yazi 
+sudo pacman -S yazi unzip
+yay -S 1password
 
 # media tools
-pacman -S mpv
+sudo pacman -S mpv
