@@ -1,6 +1,6 @@
 setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
 #unsetopt HIST_SAVE_NO_DUPS       # Write a duplicate event to the history file
-
+HISTFILE=~/.zsh_history
 TIMEFMT=$'\n================\nCPU\t%P\nuser\t%*U\nsystem\t%*S\ntotal\t%*E'
 
 
@@ -152,12 +152,6 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 zstyle ':completion:*' keep-prefix true
 
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
-
-## For kubernetes
-source $DOTFILES/zsh/plugins/kubectl-completion/_kubectl
-zstyle ':completion:*:*:kubectl:*' list-grouped false
-
-
 
 ############# 
 #
