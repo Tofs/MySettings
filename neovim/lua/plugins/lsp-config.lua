@@ -22,29 +22,18 @@ return {
     "neovim/nvim-lspconfig",
     lazy = false,
     config = function()
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-      local lspconfig = require("lspconfig")
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities
-      })
-      lspconfig.jedi_language_server.setup({
-        capabilities = capabilities
-        -- Auto compltion Solved by setting "true" to "include-system-site-packages" string in ~/.local/share/nvim/mason/packages/python-lsp-server/venv/pyvenv.cfg file.
-      })
-      lspconfig.jsonls.setup({
-        capabilities = capabilities
-      })
-      lspconfig.clangd.setup({
-        capabilities = capabilities
-      })
+        vim.lsp.enable('lua_ls')
+        vim.lsp.enable('jedi_language_server')
+        vim.lsp.enable('jsonls')
+        vim.lsp.enable('cland')
 
 
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-      vim.keymap.set("n", "td", vim.lsp.buf.definition, {})
-      vim.keymap.set("n", "tD", vim.lsp.buf.declaration, {})
-      vim.keymap.set("n", "tr", vim.lsp.buf.references, {})
-      vim.keymap.set("n", "ca", vim.lsp.buf.code_action, {})
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+        vim.keymap.set("n", "td", vim.lsp.buf.definition, {})
+        vim.keymap.set("n", "tD", vim.lsp.buf.declaration, {})
+        vim.keymap.set("n", "tr", vim.lsp.buf.references, {})
+        vim.keymap.set("n", "ca", vim.lsp.buf.code_action, {})
     end,
   },
 }

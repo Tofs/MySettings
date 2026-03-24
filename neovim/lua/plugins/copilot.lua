@@ -20,6 +20,7 @@ return {
             { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
         },
         build = "make tiktoken", -- Only on MacOS or Linux
+        model = "claude-haiku-4.5",
         opts = {
             -- See Configuration section for options
         },

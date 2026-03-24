@@ -12,9 +12,9 @@ return{
         theme_conf = { border = true },
         previewer = false,
       },
-      vim.keymap.set("n", "<C-s>", require("auto-session.session-lens").search_session, {
-        noremap = true,
-      })
+      -- vim.keymap.set("n", "<C-s>", require("auto-session.session-lens").search_session, {
+      --noremap = true,
+      --})
     }
   end
 }
