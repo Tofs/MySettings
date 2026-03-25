@@ -1,0 +1,13 @@
+[opener]
+play = [
+	{ run = "nvim $@", block = true, for = "unix" },
+	{ run = "%EDITOR% %s", block = true, for = "windows" },
+]
+edit = [
+	{ run = "nvim $@", block = true, for = "unix" },
+	{ run = "%EDITOR% %s", block = true, for = "windows" },
+]
+open = [
+	{ run = "nvim $@", block = true, for = "unix" },
+	{ run = "%EDITOR% %s", block = true, for = "windows" },
+]
