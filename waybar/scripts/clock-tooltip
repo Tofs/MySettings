@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+# ~/.config/waybar/scripts/clock-tooltip
+#
+# Install:
+#   mkdir -p ~/.config/waybar/scripts
+#   cp clock-tooltip ~/.config/waybar/scripts/
+#   chmod +x ~/.config/waybar/scripts/clock-tooltip
+
+import json
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+
+def now_in(tz):
+    return datetime.now(ZoneInfo(tz))
+
+bar_time  = now_in("Europe/Stockholm").strftime(" %H:%M")
+date_line = now_in("Europe/Stockholm").strftime("%A %d %B %Y")
+tooltip = date_line
+
+print(json.dumps({"text": bar_time, "tooltip": tooltip}, ensure_ascii=False))
